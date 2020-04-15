@@ -34,6 +34,10 @@ export default class BlotFormatter {
     this.quill.root.addEventListener('click', this.onClick);
     this.specs = this.options.specs.map((SpecClass: Class<BlotSpec>) => new SpecClass(this));
     this.specs.forEach(spec => spec.init());
+    this.sizeElems = document.createElement('div');
+    this.sizeElems.style.cssText = 'position:absolute;right:0;top:0;pointer-events:none;user-select:none;';
+    this.sizeElems.innerHTML = '<span></span>x<span></span>';
+    this.overlay.appendChild(this.sizeElems);
   }
 
   show(spec: BlotSpec) {
@@ -97,6 +101,8 @@ export default class BlotFormatter {
       width: `${specRect.width}px`,
       height: `${specRect.height}px`,
     });
+    this.sizeElems.querySelector('span:first-child').innerText = Math.round(specRect.width);
+    this.sizeElems.querySelector('span:last-child').innerText = Math.round(specRect.height);
   }
 
   setUserSelect(value: string) {

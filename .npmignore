@@ -1,0 +1,6 @@
+src/
+node_modules/
+.*
+demo.html
+CHANGELOG.md
+webpack.config.js

@@ -25,12 +25,16 @@ export interface AlignOptions {
     aligner: {
         // whether or not the aligner should handle the actual alignment properties
         applyStyle: boolean;
+        // float on parent
+        floatOnParent: boolean,
     };
     // icons used for alignment
     icons: {
         left: string;
         center: string;
         right: string;
+        full: string;
+        reset: string;
     };
     // the toolbar so users can change alignments
     toolbar: {
@@ -190,6 +194,7 @@ export class DefaultAligner implements Aligner {
     alignments: { [id: string]: Alignment; };
     alignAttribute: string;
     applyStyle: boolean;
+    floatOnParent: boolean;
 
     constructor(options: AlignOptions);
 

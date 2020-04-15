@@ -7,14 +7,18 @@ import type { AlignOptions } from '../../Options';
 const LEFT_ALIGN = 'left';
 const CENTER_ALIGN = 'center';
 const RIGHT_ALIGN = 'right';
+const FULL_ALIGN = 'full';
+const RESET_ALIGN = 'reset';
 
 export default class DefaultAligner implements Aligner {
   alignments: { [string]: Alignment };
   alignAttribute: string;
   applyStyle: boolean;
+  floatOnParent: Boolean;
 
   constructor(options: AlignOptions) {
     this.applyStyle = options.aligner.applyStyle;
+    this.floatOnParent = options.aligner.floatOnParent;
     this.alignAttribute = options.attribute;
     this.alignments = {
       [LEFT_ALIGN]: {
@@ -41,6 +45,26 @@ export default class DefaultAligner implements Aligner {
           this.setStyle(el, 'inline', 'right', '0 0 1em 1em');
         },
       },
+      [FULL_ALIGN]: {
+        name: FULL_ALIGN,
+        icon: options.icons.full,
+        apply: (el: HTMLElement) => {
+          this.setAlignment(el, FULL_ALIGN);
+          this.clear(el);
+          el.setAttribute('width', '100%');
+          el.removeAttribute('height');
+        },
+      },
+      [RESET_ALIGN]: {
+        name: FULL_ALIGN,
+        icon: options.icons.reset,
+        apply: (el: HTMLElement) => {
+          this.setAlignment(el, FULL_ALIGN);
+          this.clear(el);
+          el.removeAttribute('width');
+          el.removeAttribute('height');
+        },
+      },
     };
   }
 
@@ -64,7 +88,13 @@ export default class DefaultAligner implements Aligner {
   setStyle(el: HTMLElement, display: ?string, float: ?string, margin: ?string) {
     if (this.applyStyle) {
       el.style.setProperty('display', display);
-      el.style.setProperty('float', float);
+      if (this.floatOnParent) {
+        if (el.parentNode) {
+          el.parentNode.style.setProperty('text-align', float);
+        }
+      } else {
+        el.style.setProperty('float', float);
+      }
       el.style.setProperty('margin', margin);
     }
   }

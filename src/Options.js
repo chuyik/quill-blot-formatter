@@ -25,12 +25,15 @@ export type AlignOptions = {
   aligner: {
     // whether or not the aligner should handle the actual alignment properties
     applyStyle: boolean,
+    // float on parent
+    floatOnParent: boolean,
   },
   // icons used for alignment
   icons: {
     left: string,
     center: string,
     right: string,
+    full: string,
   },
   // the toolbar so users can change alignments
   toolbar: {
@@ -98,6 +101,19 @@ const DefaultOptions: Options = {
           <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
           <line class="ql-stroke" x1="15" x2="5" y1="14" y2="14"></line>
           <line class="ql-stroke" x1="15" x2="9" y1="4" y2="4"></line>
+        </svg>
+      `,
+      full: `
+        <svg viewbox="0 0 18 18">
+          <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
+          <line class="ql-stroke" x1="15" x2="3" y1="14" y2="14"></line>
+          <line class="ql-stroke" x1="15" x2="3" y1="4" y2="4"></line>
+        </svg>
+      `,
+      reset: `
+        <svg viewbox="0 0 18 18">
+          <line class="ql-stroke" x1="3" x2="15" y1="15" y2="3"></line>
+          <line class="ql-stroke" x1="3" x2="15" y1="3" y2="15"></line>
         </svg>
       `,
     },

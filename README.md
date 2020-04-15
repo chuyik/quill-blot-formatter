@@ -8,12 +8,12 @@ A [quill](https://quilljs.com/) module to format document [blots](https://github
 ## Installation
 Using `yarn`:
 ```
-yarn add quill-blot-formatter
+yarn add @chuyik/quill-blot-formatter
 ```
 
 Using `npm`:
 ```
-npm install --save quill-blot-formatter
+npm install --save @chuyik/quill-blot-formatter
 ```
 
 ## Usage
