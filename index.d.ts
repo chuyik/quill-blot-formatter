@@ -35,6 +35,7 @@ export interface AlignOptions {
         right: string;
         full: string;
         reset: string;
+        input: string;
     };
     // the toolbar so users can change alignments
     toolbar: {

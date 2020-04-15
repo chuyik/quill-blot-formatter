@@ -82,40 +82,12 @@ const DefaultOptions: Options = {
       applyStyle: true,
     },
     icons: {
-      left: `
-        <svg viewbox="0 0 18 18">
-          <line class="ql-stroke" x1="3" x2="15" y1="9" y2="9"></line>
-          <line class="ql-stroke" x1="3" x2="13" y1="14" y2="14"></line>
-          <line class="ql-stroke" x1="3" x2="9" y1="4" y2="4"></line>
-        </svg>
-      `,
-      center: `
-        <svg viewbox="0 0 18 18">
-           <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
-          <line class="ql-stroke" x1="14" x2="4" y1="14" y2="14"></line>
-          <line class="ql-stroke" x1="12" x2="6" y1="4" y2="4"></line>
-        </svg>
-      `,
-      right: `
-        <svg viewbox="0 0 18 18">
-          <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
-          <line class="ql-stroke" x1="15" x2="5" y1="14" y2="14"></line>
-          <line class="ql-stroke" x1="15" x2="9" y1="4" y2="4"></line>
-        </svg>
-      `,
-      full: `
-        <svg viewbox="0 0 18 18">
-          <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
-          <line class="ql-stroke" x1="15" x2="3" y1="14" y2="14"></line>
-          <line class="ql-stroke" x1="15" x2="3" y1="4" y2="4"></line>
-        </svg>
-      `,
-      reset: `
-        <svg viewbox="0 0 18 18">
-          <line class="ql-stroke" x1="3" x2="15" y1="15" y2="3"></line>
-          <line class="ql-stroke" x1="3" x2="15" y1="3" y2="15"></line>
-        </svg>
-      `,
+      left: '<svg viewbox="0 0 18 18"><line class="ql-stroke" x1="3" x2="15" y1="9" y2="9"></line><line class="ql-stroke" x1="3" x2="13" y1="14" y2="14"></line><line class="ql-stroke" x1="3" x2="9" y1="4" y2="4"></line></svg>',
+      center: '<svg viewbox="0 0 18 18"><line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line><line class="ql-stroke" x1="14" x2="4" y1="14" y2="14"></line><line class="ql-stroke" x1="12" x2="6" y1="4" y2="4"></line></svg>',
+      right: '<svg viewbox="0 0 18 18"><line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line><line class="ql-stroke" x1="15" x2="5" y1="14" y2="14"></line><line class="ql-stroke" x1="15" x2="9" y1="4" y2="4"></line></svg>',
+      full: '<svg viewbox="0 0 18 18"><line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line><line class="ql-stroke" x1="15" x2="3" y1="14" y2="14"></line><line class="ql-stroke" x1="15" x2="3" y1="4" y2="4"></line></svg>',
+      reset: '<svg viewbox="0 0 18 18"><line class="ql-stroke" x1="3" x2="15" y1="15" y2="3"></line><line class="ql-stroke" x1="3" x2="15" y1="3" y2="15"></line></svg>',
+      input: '<svg viewbox="0 0 18 18"><path d="M4.103 13.308a.787.787 0 00.116-.01l3.252-.567a.19.19 0 00.103-.054l8.195-8.152-3.213-3.47A.192.192 0 0012.419 1c-.052 0-.1.02-.138.056L4.086 9.208a.195.195 0 00-.054.102l-.57 3.234c.127.123.288.19.46.19l.181.574zm.887-2.929l6.92-6.917 1.398 1.398-6.92 6.917-1.696.3.298-1.698zm11.37 5.39H1.64c-.354 0-.64.232-.64.518v.583c0 .072.072.13.16.13h15.68c.088 0 .16-.058.16-.13v-.583c0-.286-.286-.518-.64-.518z"/></svg>',
     },
     toolbar: {
       allowDeselect: true,

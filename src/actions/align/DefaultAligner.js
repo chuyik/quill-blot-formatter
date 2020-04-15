@@ -9,6 +9,7 @@ const CENTER_ALIGN = 'center';
 const RIGHT_ALIGN = 'right';
 const FULL_ALIGN = 'full';
 const RESET_ALIGN = 'reset';
+const INPUT_ALIGN = 'input';
 
 export default class DefaultAligner implements Aligner {
   alignments: { [string]: Alignment };
@@ -52,7 +53,9 @@ export default class DefaultAligner implements Aligner {
           this.setAlignment(el, FULL_ALIGN);
           this.clear(el);
           el.setAttribute('width', '100%');
-          el.removeAttribute('height');
+          if (el.tagName === 'IMG') {
+            el.removeAttribute('height');
+          }
         },
       },
       [RESET_ALIGN]: {
@@ -63,6 +66,21 @@ export default class DefaultAligner implements Aligner {
           this.clear(el);
           el.removeAttribute('width');
           el.removeAttribute('height');
+        },
+      },
+      [INPUT_ALIGN]: {
+        name: FULL_ALIGN,
+        icon: options.icons.input,
+        apply: (el: HTMLElement) => {
+          const res = window.prompt('手动输入宽度和高度', `${Math.round(el.width)}x${Math.round(el.height)}`);
+          if (!res) return;
+          const [width, height] = res.split('x').map(parseFloat);
+          if (!isNaN(width)) {
+            el.setAttribute('width', `${width}px`);
+          }
+          if (!isNaN(height)) {
+            el.setAttribute('height', `${height}px`);
+          }
         },
       },
     };

@@ -35,7 +35,7 @@ export default class BlotFormatter {
     this.specs = this.options.specs.map((SpecClass: Class<BlotSpec>) => new SpecClass(this));
     this.specs.forEach(spec => spec.init());
     this.sizeElems = document.createElement('div');
-    this.sizeElems.style.cssText = 'position:absolute;right:0;top:0;pointer-events:none;user-select:none;';
+    this.sizeElems.style.cssText = 'position:absolute;right:0px;top:0px;pointer-events:none;user-select:none;background:#737070;padding:8px;font-size:16px;color:#ffffff;';
     this.sizeElems.innerHTML = '<span></span>x<span></span>';
     this.overlay.appendChild(this.sizeElems);
   }
