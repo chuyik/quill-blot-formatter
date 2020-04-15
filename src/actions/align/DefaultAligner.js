@@ -72,14 +72,15 @@ export default class DefaultAligner implements Aligner {
         name: FULL_ALIGN,
         icon: options.icons.input,
         apply: (el: HTMLElement) => {
-          const res = window.prompt('手动输入宽度和高度', `${Math.round(el.width)}x${Math.round(el.height)}`);
+          const { width, height } = el.getBoundingClientRect();
+          const res = window.prompt('手动输入宽度和高度', `${Math.round(width)}x${Math.round(height)}`);
           if (!res) return;
-          const [width, height] = res.split('x').map(parseFloat);
-          if (!isNaN(width)) {
-            el.setAttribute('width', `${width}px`);
+          const [newWidth, newHeight] = res.split('x').map(parseFloat);
+          if (!isNaN(newWidth)) {
+            el.setAttribute('width', `${newWidth}px`);
           }
-          if (!isNaN(height)) {
-            el.setAttribute('height', `${height}px`);
+          if (!isNaN(newHeight)) {
+            el.setAttribute('height', `${newHeight}px`);
           }
         },
       },
