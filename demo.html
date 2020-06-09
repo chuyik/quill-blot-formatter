@@ -13,6 +13,15 @@
       height: 100%;
     }
 
+    #wrap {
+      display: flex;
+    }
+
+    #wrap > * {
+      flex: 1;
+      width: 50%;
+    }
+
     #scrolling-container {
       height: 100%;
       min-height: 100%;
@@ -33,7 +42,7 @@
 </head>
 <body>
 
-
+<div id="wrap">
 <div id="scrolling-container">
   <div id="quill-container">
     <p>Hi! Here is an image...</p>
@@ -44,7 +53,31 @@
 </div>
 
 
+<div id="preview"></div>
+
+</div>
+<pre id="delta"></pre>
+
 <script>
+  var toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block'],
+
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+
+  ['clean']                                         // remove formatting button
+];
   Quill.register({
     'modules/blotFormatter': QuillBlotFormatter.default,
   })
@@ -53,8 +86,18 @@
     scrollingContainer: '#scrolling-container',
     modules: {
       blotFormatter: { align: { aligner: { floatOnParent: true } } },
+      toolbar: toolbarOptions
     }
   });
+
+  setInterval(() => {
+    window.quill = quill
+    if (quill.container.firstChild.innerHTML !== document.getElementById('preview').innerHTML) {
+      document.getElementById('preview').innerHTML = quill.container.firstChild.innerHTML
+
+      document.getElementById('delta').innerHTML = JSON.stringify(quill.getContents(), null, 2)
+    }
+  }, 1000)
 </script>
 
 </body>
