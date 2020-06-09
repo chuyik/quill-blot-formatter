@@ -17,7 +17,7 @@ export default class DefaultAligner implements Aligner {
   applyStyle: boolean;
   floatOnParent: Boolean;
 
-  constructor(options: AlignOptions) {
+  constructor(options: AlignOptions, formatter) {
     this.applyStyle = options.aligner.applyStyle;
     this.floatOnParent = options.aligner.floatOnParent;
     this.alignAttribute = options.attribute;
@@ -26,7 +26,10 @@ export default class DefaultAligner implements Aligner {
         name: LEFT_ALIGN,
         icon: options.icons.left,
         apply: (el: HTMLElement) => {
-          this.setStyle(el, 'block', 'left', '0 1em 1em 0');
+        //   this.setStyle(el, 'block', 'left', '0');
+          if (el.getAttribute('width') === '100%') {
+            el.removeAttribute('width');
+          }
           this.setAlignment(el, LEFT_ALIGN);
         },
       },
@@ -34,7 +37,10 @@ export default class DefaultAligner implements Aligner {
         name: CENTER_ALIGN,
         icon: options.icons.center,
         apply: (el: HTMLElement) => {
-          this.setStyle(el, 'block', null, 'auto');
+        //   this.setStyle(el, 'block', null, 'auto');
+          if (el.getAttribute('width') === '100%') {
+            el.removeAttribute('width');
+          }
           this.setAlignment(el, CENTER_ALIGN);
         },
       },
@@ -42,7 +48,10 @@ export default class DefaultAligner implements Aligner {
         name: RIGHT_ALIGN,
         icon: options.icons.right,
         apply: (el: HTMLElement) => {
-          this.setStyle(el, 'block', 'right', '0 0 0 auto');
+        //   this.setStyle(el, 'block', 'right', '0 0 0 auto');
+          if (el.getAttribute('width') === '100%') {
+            el.removeAttribute('width');
+          }
           this.setAlignment(el, RIGHT_ALIGN);
         },
       },
@@ -51,7 +60,7 @@ export default class DefaultAligner implements Aligner {
         icon: options.icons.full,
         apply: (el: HTMLElement) => {
           this.setAlignment(el, FULL_ALIGN);
-          this.clear(el);
+          // this.clear(el);
           el.setAttribute('width', '100%');
           if (el.tagName === 'IMG') {
             el.removeAttribute('height');
@@ -59,17 +68,17 @@ export default class DefaultAligner implements Aligner {
         },
       },
       [RESET_ALIGN]: {
-        name: FULL_ALIGN,
+        name: RESET_ALIGN,
         icon: options.icons.reset,
         apply: (el: HTMLElement) => {
-          this.setAlignment(el, FULL_ALIGN);
-          this.clear(el);
+          this.setAlignment(el, RESET_ALIGN);
+          // this.clear(el);
           el.removeAttribute('width');
           el.removeAttribute('height');
         },
       },
       [INPUT_ALIGN]: {
-        name: FULL_ALIGN,
+        name: INPUT_ALIGN,
         icon: options.icons.input,
         apply: (el: HTMLElement) => {
           const { width, height } = el.getBoundingClientRect();
@@ -82,6 +91,7 @@ export default class DefaultAligner implements Aligner {
           if (!isNaN(newHeight)) {
             el.setAttribute('height', `${newHeight}px`);
           }
+          formatter.update();
         },
       },
     };
@@ -91,10 +101,10 @@ export default class DefaultAligner implements Aligner {
     return Object.keys(this.alignments).map(k => this.alignments[k]);
   }
 
-  clear(el: HTMLElement): void {
-    el.removeAttribute(this.alignAttribute);
-    this.setStyle(el, null, null, null);
-  }
+  // clear(el: HTMLElement): void {
+  //   el.removeAttribute(this.alignAttribute);
+  //   this.setStyle(el, null, null, null);
+  // }
 
   isAligned(el: HTMLElement, alignment: Alignment): boolean {
     return el.getAttribute(this.alignAttribute) === alignment.name;
@@ -104,17 +114,17 @@ export default class DefaultAligner implements Aligner {
     el.setAttribute(this.alignAttribute, value);
   }
 
-  setStyle(el: HTMLElement, display: ?string, float: ?string, margin: ?string) {
-    if (this.applyStyle) {
-      el.style.setProperty('display', display);
-      if (this.floatOnParent) {
-        if (el.parentNode) {
-          el.parentNode.style.setProperty('text-align', float);
-        }
-      } else if (display !== 'block') {
-        el.style.setProperty('float', float);
-      }
-      el.style.setProperty('margin', margin);
-    }
-  }
+  // setStyle(el: HTMLElement, display: ?string, float: ?string, margin: ?string) {
+  //   if (this.applyStyle) {
+  //     el.style.setProperty('display', display);
+  //     if (this.floatOnParent) {
+  //       if (el.parentNode) {
+  //         el.parentNode.style.setProperty('text-align', float);
+  //       }
+  //     } else if (display !== 'block') {
+  //       el.style.setProperty('float', float);
+  //     }
+  //     el.style.setProperty('margin', margin);
+  //   }
+  // }
 }

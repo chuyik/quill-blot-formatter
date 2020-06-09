@@ -4,11 +4,11 @@ import BlotSpec from './BlotSpec';
 import BlotFormatter from '../BlotFormatter';
 
 export default class ImageSpec extends BlotSpec {
-  img: ?HTMLElement;
+  target: ?HTMLElement;
 
   constructor(formatter: BlotFormatter) {
     super(formatter);
-    this.img = null;
+    this.target = null;
   }
 
   init() {
@@ -16,11 +16,11 @@ export default class ImageSpec extends BlotSpec {
   }
 
   getTargetElement(): ?HTMLElement {
-    return this.img;
+    return this.target;
   }
 
   onHide() {
-    this.img = null;
+    this.target = null;
   }
 
   onClick = (event: MouseEvent) => {
@@ -29,7 +29,7 @@ export default class ImageSpec extends BlotSpec {
       return;
     }
 
-    this.img = el;
+    this.target = el;
     this.formatter.show(this);
   };
 }

@@ -113,7 +113,9 @@ export default class DefaultToolbar implements Toolbar {
     aligner: Aligner,
   ) {
     this.buttons.forEach((b) => { this.deselectButton(formatter, b); });
-    if (aligner.isAligned(alignTarget, alignment)) {
+
+    const aligned = aligner.isAligned(alignTarget, alignment);
+    if (aligned) {
       if (formatter.options.align.toolbar.allowDeselect) {
         aligner.clear(alignTarget);
       } else {
@@ -124,7 +126,18 @@ export default class DefaultToolbar implements Toolbar {
       alignment.apply(alignTarget);
     }
 
-    formatter.update();
+    if (alignment.name !== 'input') {
+      const quill = formatter.quill;
+      const node = formatter.currentSpec.target;
+      if (node) {
+        const blot = quill.constructor.find(node);
+        if (blot) {
+          const idx = quill.getIndex(blot);
+          quill.formatLine(idx, 0, 'align', alignment.name === 'left' || aligned ? '' : alignment.name);
+        }
+      }
+      formatter.update();
+    }
   }
 
   selectButton(formatter: BlotFormatter, button: HTMLElement) {

@@ -8,15 +8,15 @@ const PROXY_IMAGE_CLASS = 'blot-formatter__proxy-image';
 
 export default class UnclickableBlotSpec extends BlotSpec {
   selector: string;
-  unclickable: ?HTMLElement;
-  nextUnclickable: ?HTMLElement;
+  target: ?HTMLElement;
+  nextTarget: ?HTMLElement;
   proxyImage: HTMLImageElement;
 
   constructor(formatter: BlotFormatter, selector: string) {
     super(formatter);
     this.selector = selector;
-    this.unclickable = null;
-    this.nextUnclickable = null;
+    this.target = null;
+    this.nextTarget = null;
   }
 
   init() {
@@ -34,17 +34,17 @@ export default class UnclickableBlotSpec extends BlotSpec {
   }
 
   getTargetElement(): ?HTMLElement {
-    return this.unclickable;
+    return this.target;
   }
 
   getOverlayElement(): ?HTMLElement {
-    return this.unclickable;
+    return this.target;
   }
 
   onHide() {
     this.hideProxyImage();
-    this.nextUnclickable = null;
-    this.unclickable = null;
+    this.nextTarget = null;
+    this.target = null;
   }
 
   createProxyImage(): HTMLElement {
@@ -72,8 +72,8 @@ export default class UnclickableBlotSpec extends BlotSpec {
     });
   }
 
-  repositionProxyImage(unclickable: HTMLElement) {
-    const rect = unclickable.getBoundingClientRect();
+  repositionProxyImage(target: HTMLElement) {
+    const rect = target.getBoundingClientRect();
 
     Object.assign(
       this.proxyImage.style,
@@ -89,25 +89,25 @@ export default class UnclickableBlotSpec extends BlotSpec {
 
   onTextChange = () => {
     Array.from(document.querySelectorAll(`${this.selector}:not([${MOUSE_ENTER_ATTRIBUTE}])`))
-      .forEach((unclickable) => {
-        unclickable.setAttribute(MOUSE_ENTER_ATTRIBUTE, 'true');
-        unclickable.addEventListener('mouseenter', this.onMouseEnter);
+      .forEach((target) => {
+        target.setAttribute(MOUSE_ENTER_ATTRIBUTE, 'true');
+        target.addEventListener('mouseenter', this.onMouseEnter);
       });
   };
 
   onMouseEnter = (event: MouseEvent) => {
-    const unclickable = event.target;
-    if (!(unclickable instanceof HTMLElement)) {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) {
       return;
     }
 
-    this.nextUnclickable = unclickable;
-    this.repositionProxyImage(this.nextUnclickable);
+    this.nextTarget = target;
+    this.repositionProxyImage(this.nextTarget);
   }
 
   onProxyImageClick = () => {
-    this.unclickable = this.nextUnclickable;
-    this.nextUnclickable = null;
+    this.target = this.nextTarget;
+    this.nextTarget = null;
     this.formatter.show(this);
     this.hideProxyImage();
   };
