@@ -115,6 +115,7 @@ const DefaultOptions: Options = {
         background: 'white',
         border: '1px solid #999',
         verticalAlign: 'middle',
+        position: 'relative',
       },
       svgStyle: {
         display: 'inline-block',

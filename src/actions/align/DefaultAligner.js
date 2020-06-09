@@ -25,6 +25,7 @@ export default class DefaultAligner implements Aligner {
       [LEFT_ALIGN]: {
         name: LEFT_ALIGN,
         icon: options.icons.left,
+        text: '左对齐',
         apply: (el: HTMLElement) => {
         //   this.setStyle(el, 'block', 'left', '0');
           if (el.getAttribute('width') === '100%') {
@@ -36,6 +37,7 @@ export default class DefaultAligner implements Aligner {
       [CENTER_ALIGN]: {
         name: CENTER_ALIGN,
         icon: options.icons.center,
+        text: '居中对齐',
         apply: (el: HTMLElement) => {
         //   this.setStyle(el, 'block', null, 'auto');
           if (el.getAttribute('width') === '100%') {
@@ -47,6 +49,7 @@ export default class DefaultAligner implements Aligner {
       [RIGHT_ALIGN]: {
         name: RIGHT_ALIGN,
         icon: options.icons.right,
+        text: '右对齐',
         apply: (el: HTMLElement) => {
         //   this.setStyle(el, 'block', 'right', '0 0 0 auto');
           if (el.getAttribute('width') === '100%') {
@@ -58,6 +61,7 @@ export default class DefaultAligner implements Aligner {
       [FULL_ALIGN]: {
         name: FULL_ALIGN,
         icon: options.icons.full,
+        text: '宽度 100%',
         apply: (el: HTMLElement) => {
           this.setAlignment(el, FULL_ALIGN);
           // this.clear(el);
@@ -70,6 +74,7 @@ export default class DefaultAligner implements Aligner {
       [RESET_ALIGN]: {
         name: RESET_ALIGN,
         icon: options.icons.reset,
+        text: '重置',
         apply: (el: HTMLElement) => {
           this.setAlignment(el, RESET_ALIGN);
           // this.clear(el);
@@ -80,6 +85,7 @@ export default class DefaultAligner implements Aligner {
       [INPUT_ALIGN]: {
         name: INPUT_ALIGN,
         icon: options.icons.input,
+        text: '自定义宽度和高度',
         apply: (el: HTMLElement) => {
           const { width, height } = el.getBoundingClientRect();
           const res = window.prompt('手动输入宽度和高度', `${Math.round(width)}x${Math.round(height)}`);

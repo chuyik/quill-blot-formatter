@@ -60,6 +60,29 @@ export default class DefaultToolbar implements Toolbar {
       button.addEventListener('click', () => {
         this.onButtonClick(button, formatter, alignment, aligner);
       });
+      button.addEventListener('mouseenter', () => {
+        const tip = document.createElement('div');
+        tip.innerText = alignment.text || alignment.name;
+        Object.assign(tip.style, {
+          position: 'absolute',
+          top: '-20px',
+          background: '#2196F3',
+          padding: '4px 6px',
+          color: '#fff',
+          textAlign: 'center',
+          display: 'block',
+          whiteSpace: 'nowrap',
+          transform: 'translateX(-50%)',
+          left: '50%',
+        });
+        button.appendChild(tip);
+      });
+      button.addEventListener('mouseleave', () => {
+        const tip = button.querySelector('div');
+        if (tip) {
+          button.removeChild(tip);
+        }
+      });
       this.preselectButton(button, alignment, formatter, aligner);
       this.addButtonStyle(button, i, formatter);
       this.buttons.push(button);
@@ -117,7 +140,7 @@ export default class DefaultToolbar implements Toolbar {
     const aligned = aligner.isAligned(alignTarget, alignment);
     if (aligned) {
       if (formatter.options.align.toolbar.allowDeselect) {
-        aligner.clear(alignTarget);
+        // aligner.clear(alignTarget);
       } else {
         this.selectButton(formatter, button);
       }
@@ -133,7 +156,7 @@ export default class DefaultToolbar implements Toolbar {
         const blot = quill.constructor.find(node);
         if (blot) {
           const idx = quill.getIndex(blot);
-          quill.formatLine(idx, 0, 'align', alignment.name === 'left' || aligned ? '' : alignment.name);
+          quill.formatLine(idx, 0, 'align', alignment.name === 'left' || alignment.name === 'reset' || aligned ? '' : alignment.name);
         }
       }
       formatter.update();
