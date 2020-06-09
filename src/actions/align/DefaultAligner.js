@@ -26,24 +26,24 @@ export default class DefaultAligner implements Aligner {
         name: LEFT_ALIGN,
         icon: options.icons.left,
         apply: (el: HTMLElement) => {
+          this.setStyle(el, 'block', 'left', '0 1em 1em 0');
           this.setAlignment(el, LEFT_ALIGN);
-          this.setStyle(el, 'inline', 'left', '0 1em 1em 0');
         },
       },
       [CENTER_ALIGN]: {
         name: CENTER_ALIGN,
         icon: options.icons.center,
         apply: (el: HTMLElement) => {
-          this.setAlignment(el, CENTER_ALIGN);
           this.setStyle(el, 'block', null, 'auto');
+          this.setAlignment(el, CENTER_ALIGN);
         },
       },
       [RIGHT_ALIGN]: {
         name: RIGHT_ALIGN,
         icon: options.icons.right,
         apply: (el: HTMLElement) => {
+          this.setStyle(el, 'block', 'right', '0 0 0 auto');
           this.setAlignment(el, RIGHT_ALIGN);
-          this.setStyle(el, 'inline', 'right', '0 0 1em 1em');
         },
       },
       [FULL_ALIGN]: {
@@ -111,7 +111,7 @@ export default class DefaultAligner implements Aligner {
         if (el.parentNode) {
           el.parentNode.style.setProperty('text-align', float);
         }
-      } else {
+      } else if (display !== 'block') {
         el.style.setProperty('float', float);
       }
       el.style.setProperty('margin', margin);
